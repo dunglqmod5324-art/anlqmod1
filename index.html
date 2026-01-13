@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Year End Party 2025 - Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top, #b71c1c 0%, #4a0000 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Hiệu ứng nền --- */
+        .snow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .snow { position: absolute; top: -10px; background: #fff; border-radius: 50%; opacity: 0.5; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(105vh); } }
+
+        /* --- Pháo Hoa --- */
+        .firework { position: fixed; pointer-events: none; z-index: 0; }
+        .fw-particle { 
+            position: absolute; width: 4px; height: 4px; border-radius: 50%; 
+            animation: explode 1s ease-out forwards; 
+        }
+        @keyframes explode {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
+        /* --- Chai Sâm Panh --- */
+        .champagne-wrapper {
+            position: absolute; 
+            bottom: 15px;       
+            right: 15px;        
+            z-index: 100;
+            pointer-events: none; 
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+        .bottle-container {
+            position: relative; 
+            width: 85px; 
+            transform-origin: bottom right; 
+            transform: rotate(-10deg);
+        }
+        .bottle { width: 100%; height: auto; display: block; }
+        .cork {
+            position: absolute; top: 0; left: 26px; width: 18px; height: 26px;
+            background-color: #8d6e63; border-radius: 3px; z-index: -1;
+        }
+
+        /* Animation Chai */
+        .shake-hard { animation: shakeHard 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shakeHard {
+            10%, 90% { transform: rotate(-11deg) translate3d(-1px, 0, 0); }
+            20%, 80% { transform: rotate(-9deg) translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: rotate(-13deg) translate3d(-3px, 0, 0); }
+            40%, 60% { transform: rotate(-7deg) translate3d(3px, 0, 0); }
+        }
+        .pop-recoil { animation: recoil 0.3s ease-out; }
+        @keyframes recoil {
+            0% { transform: rotate(-10deg) translateY(0); }
+            20% { transform: rotate(-10deg) translateY(20px); }
+            100% { transform: rotate(-10deg) translateY(0); }
+        }
+
+        /* Hạt bong bóng */
+        .bubble {
+            position: absolute; border-radius: 50%; pointer-events: none; z-index: 99;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+        }
+
+        /* --- Khung Thiệp --- */
+        .container {
+            max-width: 600px; width: 92%; margin: 20px; padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 211, 105, 0.5); border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            text-align: center; position: relative; z-index: 2;
+            animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding-bottom: 60px; 
+        }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .logo {
+            width: 250px; margin: 0 auto 20px;
+            background: rgba(255,255,255,0.95); padding: 15px; border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .logo img { width: 100%; height: auto; display: block; }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 42px);
+            background: linear-gradient(to bottom, #ffd700, #ffb700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+            margin: 10px 0; text-transform: uppercase; letter-spacing: 2px;
+        }
+        h2 { font-size: 16px; letter-spacing: 6px; text-transform: uppercase; color: #eee; margin-bottom: 5px; }
+
+        .info-box {
+            background: rgba(0,0,0,0.25); padding: 25px; border-radius: 20px;
+            margin: 30px 0; border: 1px solid rgba(255,211,105,0.2);
+        }
+        .highlight { color: #ffeb3b; font-weight: 700; }
+        
+        .btn {
+            display: inline-block; padding: 18px 50px;
+            background: linear-gradient(45deg, #ffd700, #ffa000);
+            color: #5d0000; font-weight: 800; text-decoration: none;
+            border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 10px 25px rgba(255, 160, 0, 0.4);
+            transition: all 0.3s;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 160, 0, 0.6); }
+
+        /* Nút bản đồ nhỏ */
+        .map-btn {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 16px;
+            background: rgba(255, 211, 105, 0.1);
+            border: 1px solid #ffd369;
+            color: #ffd369;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .map-btn:hover {
+            background: #ffd369;
+            color: #b71c1c;
+        }
+
+        .footer-text {
+            margin-top: 40px; font-size: 14px; opacity: 0.8; font-style: italic;
+            margin-right: 40px; 
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 30px 15px; padding-bottom: 50px; }
+            .bottle-container { width: 70px; }
+            .champagne-wrapper { right: 10px; bottom: 10px; }
+            .cork { left: 21px; width: 15px; height: 22px; }
+            .footer-text { margin-right: 20px; font-size: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="snow-container" id="snowContainer"></div>
+<div id="youtube-player" style="position: absolute; top: -999px; left: -999px;"></div>
+
+<div class="container">
+    <div class="logo">
+        <img src="logocty.png" alt="Logo">
+    </div>
+
+    <h2>THIỆP MỜI</h2>
+    <h1>YEAR END PARTY 2025</h1>
+    
+    <div style="width: 100px; height: 3px; background: #ffd700; margin: 20px auto;"></div>
+
+    <p style="font-size: 18px; line-height: 1.6;">
+        Trân trọng kính mời<br>
+        <span class="highlight" style="font-size: 22px;">Quý Anh / Chị</span><br>
+        đến tham dự buổi tiệc tổng kết cuối năm
+    </p>
+
+    <div class="info-box">
+        <p style="margin: 5px 0; font-size: 17px;">🗓 <span class="highlight">Thời gian:</span> 18:00 – Thứ 4, 14/01/2026</p>
+        
+        <div style="margin: 10px 0;">
+            <p style="margin: 0; font-size: 17px;">📍 <span class="highlight">Địa điểm:</span> Sảnh Diamond – Nhà hàng ABC</p>
+            <a href="#" target="_blank" class="map-btn">🗺️ Xem bản đồ</a>
+        </div>
+
+        <p style="margin: 5px 0; font-size: 17px;">👔 <span class="highlight">Dress Code:</span> Elegant / Party</p>
+    </div>
+
+    <a class="btn" href="cam-on.html">Xác Nhận Tham Dự</a>
+
+    <div class="footer-text">✨ Hân hạnh được đón tiếp ✨</div>
+
+    <div class="champagne-wrapper">
+        <div class="bottle-container" id="bottleContainer">
+            <div class="cork" id="cork"></div> 
+            <img src="samphanh.png" class="bottle" alt="Champagne Bottle">
+        </div>
+    </div>
+</div>
+
+<script>
+    // YouTube API
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-player', {
+            height: '0', width: '0', videoId: 'F4Dq1h5Nou8',
+            playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'F4Dq1h5Nou8', 'controls': 0 },
+            events: { 'onReady': (e) => { e.target.setVolume(70); e.target.playVideo(); } }
+        });
+    }
+    document.body.addEventListener('click', () => { if(player) player.playVideo(); }, {once:true});
+
+    // --- 1. SÂM PANH NỔ ---
+    const bottleContainer = document.getElementById('bottleContainer');
+    const cork = document.getElementById('cork');
+
+    function popChampagneReal() {
+        bottleContainer.classList.add('shake-hard');
+        setTimeout(() => {
+            bottleContainer.classList.remove('shake-hard');
+            bottleContainer.classList.add('pop-recoil');
+
+            const corkRect = cork.getBoundingClientRect();
+            const flyingCork = cork.cloneNode(true);
+            flyingCork.style.position = 'fixed'; 
+            flyingCork.style.left = corkRect.left + 'px';
+            flyingCork.style.top = corkRect.top + 'px';
+            flyingCork.style.transition = 'all 1s ease-out';
+            flyingCork.style.zIndex = '101';
+            document.body.appendChild(flyingCork);
+
+            setTimeout(() => {
+                flyingCork.style.transform = 'translate(-150px, -250px) rotate(-720deg)';
+                flyingCork.style.opacity = '0';
+            }, 10);
+
+            // Phun bọt
+            spawnChampagneParticles(corkRect.left + 8, corkRect.top + 5);
+
+            setTimeout(() => {
+                bottleContainer.classList.remove('pop-recoil');
+                flyingCork.remove();
+            }, 1000);
+        }, 1200);
+    }
+
+    function spawnChampagneParticles(x, y) {
+        for (let i = 0; i < 150; i++) {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const type = Math.random();
+            let size, color;
+            
+            if (type > 0.7) { 
+                size = Math.random() * 8 + 3; color = 'radial-gradient(circle, #fff 10%, #ffd700 100%)';
+            } else if (type > 0.4) { 
+                size = Math.random() * 4 + 1; color = 'rgba(255,255,255,0.9)';
+            } else { 
+                size = Math.random() * 6 + 2; color = 'rgba(255, 235, 59, 0.6)';
+            }
+
+            b.style.width = size + 'px'; b.style.height = size + 'px'; b.style.background = color;
+            b.style.left = x + 'px'; b.style.top = y + 'px';
+            document.body.appendChild(b);
+
+            const angle = (Math.PI / 180) * (Math.random() * 60 + 220);
+            const velocity = Math.random() * 10 + 6;
+            let vx = Math.cos(angle) * velocity;
+            let vy = Math.sin(angle) * velocity;
+            let gravity = 0.5; let posX = x; let posY = y; let life = 1;
+
+            function update() {
+                posX += vx; posY += vy; vy += gravity; life -= 0.015;
+                b.style.left = posX + 'px'; b.style.top = posY + 'px'; b.style.opacity = life;
+                if (life > 0 && posY < window.innerHeight) requestAnimationFrame(update);
+                else b.remove();
+            }
+            requestAnimationFrame(update);
+        }
+    }
+
+    // --- 2. PHÁO HOA ---
+    function createFirework() {
+        const fw = document.createElement("div");
+        fw.className = "firework";
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * (window.innerHeight * 0.5); 
+        fw.style.left = x + "px"; fw.style.top = y + "px";
+        document.body.appendChild(fw);
+
+        const colors = ['#ffeb3b', '#ffffff', '#ffd369', '#ff5722', '#00e5ff'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement("div");
+            p.className = "fw-particle";
+            p.style.backgroundColor = color;
+            const angle = (i / 30) * Math.PI * 2;
+            const velocity = Math.random() * 120 + 60;
+            p.style.setProperty('--x', Math.cos(angle) * velocity + "px");
+            p.style.setProperty('--y', Math.sin(angle) * velocity + "px");
+            fw.appendChild(p);
+        }
+        setTimeout(() => fw.remove(), 1000);
+    }
+
+    // --- 3. TUYẾT RƠI ---
+    function initSnow() {
+        const container = document.getElementById('snowContainer');
+        for (let i = 0; i < 40; i++) {
+            const s = document.createElement('div');
+            s.className = 'snow';
+            s.style.width = s.style.height = Math.random()*5+2+'px';
+            s.style.left = Math.random()*100+'%';
+            s.style.animationDuration = Math.random()*5+5+'s';
+            s.style.animationDelay = Math.random()*5+'s';
+            container.appendChild(s);
+        }
+    }
+
+    // --- KHỞI CHẠY ---
+    window.onload = () => {
+        initSnow();
+        setTimeout(popChampagneReal, 500);
+        setInterval(popChampagneReal, 5000);
+        setInterval(createFirework, 1200);
+    };
+</script>
+
+</body>
+</html>

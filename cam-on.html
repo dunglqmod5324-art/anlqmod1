@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Cảm Ơn Quý Khách - Phước Hưng Computer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #d32f2f 0%, #8b0000 100%);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .thank-you-box {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid #ffd369;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: popIn 1s ease-out;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        h1 { color: #ffd369; font-size: 40px; margin-bottom: 10px; }
+        p { font-size: 18px; line-height: 1.6; }
+        .back-btn {
+            margin-top: 20px;
+            display: inline-block;
+            color: #ffd369;
+            text-decoration: none;
+            border: 1px solid #ffd369;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: #ffd369; color: #8b0000; }
+        
+        /* Hiệu ứng pháo hoa đơn giản */
+        .firework { position: fixed; pointer-events: none; }
+        .particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; animation: explode 1s ease-out forwards; }
+        @keyframes explode {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-box">
+        <h1>XIN CẢM ƠN!</h1>
+        <p>Phước Hưng Computer đã nhận được thông tin xác nhận của Quý Anh/Chị.</p>
+        <p>Rất hân hạnh được đón tiếp Anh/Chị tại buổi tiệc!</p>
+        <a href="tm.html" class="back-btn">Quay lại thư mời</a>
+    </div>
+
+    <script>
+        function createFirework() {
+            const fw = document.createElement("div");
+            fw.className = "firework";
+            fw.style.left = Math.random() * window.innerWidth + "px";
+            fw.style.top = Math.random() * window.innerHeight + "px";
+            document.body.appendChild(fw);
+            const colors = ['#ffeb3b', '#ffffff', '#ffd369'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement("div");
+                p.className = "particle";
+                p.style.backgroundColor = color;
+                const angle = (i / 20) * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50;
+                p.style.setProperty('--x', Math.cos(angle) * velocity + "px");
+                p.style.setProperty('--y', Math.sin(angle) * velocity + "px");
+                fw.appendChild(p);
+            }
+            setTimeout(() => fw.remove(), 1000);
+        }
+        setInterval(createFirework, 800);
+    </script>
+</body>
+</html>
